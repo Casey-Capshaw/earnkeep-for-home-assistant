@@ -31,3 +31,4 @@ frontend/test/private/
 # Private household layer (see .claude/CLAUDE.md)
 CLAUDE.local.md
 .claude/CLAUDE.local.md
+AGENTS.local.md
