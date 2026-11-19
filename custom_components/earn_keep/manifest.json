@@ -1,0 +1,16 @@
+{
+  "domain": "earn_keep",
+  "name": "EarnKeep",
+  "codeowners": [
+    "@caseycapshaw"
+  ],
+  "config_flow": true,
+  "dependencies": [
+    "http"
+  ],
+  "documentation": "https://github.com/Casey-Capshaw/earnkeep-for-home-assistant",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/Casey-Capshaw/earnkeep-for-home-assistant/issues",
+  "requirements": [],
+  "version": "1.8.0"
+}

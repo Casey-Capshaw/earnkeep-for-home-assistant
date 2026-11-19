@@ -1,0 +1,809 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Casey-Capshaw/earnkeep-for-home-assistant/blob/main/docs/sprites/sprite.schema.json",
+  "title": "EarnKeep Sprite character",
+  "description": "An EarnKeep Sprite character. Unknown fields are allowed (kept, with a warning). Never put photos in this file.",
+  "type": "object",
+  "required": [
+    "format",
+    "version"
+  ],
+  "properties": {
+    "format": {
+      "const": "earnkeep-sprite"
+    },
+    "version": {
+      "const": 1
+    },
+    "label": {
+      "description": "Optional name shown in the preview and used for the export filename.",
+      "type": "string",
+      "maxLength": 40
+    },
+    "body": {
+      "description": "Body.",
+      "type": "object",
+      "properties": {
+        "height": {
+          "description": "Relative size; 1 is the default.",
+          "type": "number",
+          "minimum": 0.85,
+          "maximum": 1.15,
+          "default": 1
+        },
+        "skin": {
+          "description": "Skin tone, tone-1 (lightest) to tone-8 (deepest).",
+          "type": "string",
+          "enum": [
+            "tone-1",
+            "tone-2",
+            "tone-3",
+            "tone-4",
+            "tone-5",
+            "tone-6",
+            "tone-7",
+            "tone-8"
+          ],
+          "default": "tone-3"
+        }
+      }
+    },
+    "hair": {
+      "description": "Hair.",
+      "type": "object",
+      "properties": {
+        "color": {
+          "description": "Natural hair color.",
+          "type": "string",
+          "enum": [
+            "black",
+            "dark-brown",
+            "brown",
+            "light-brown",
+            "auburn",
+            "red",
+            "strawberry-blond",
+            "dirty-blond",
+            "golden-blond",
+            "platinum-blond",
+            "grey"
+          ],
+          "default": "brown"
+        },
+        "dye": {
+          "description": "Dyed hair, or null.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "color": {
+              "description": "Dye color.",
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$",
+              "default": "#7B5CFF"
+            },
+            "where": {
+              "description": "Where the dye shows.",
+              "type": "string",
+              "enum": [
+                "all",
+                "tips",
+                "streak"
+              ],
+              "default": "all"
+            }
+          }
+        },
+        "length": {
+          "description": "Hair length.",
+          "type": "string",
+          "enum": [
+            "short",
+            "medium",
+            "long"
+          ],
+          "default": "medium"
+        },
+        "texture": {
+          "description": "Hair texture.",
+          "type": "string",
+          "enum": [
+            "straight",
+            "wavy",
+            "curly",
+            "coily"
+          ],
+          "default": "straight"
+        },
+        "front": {
+          "description": "How the hair sits at the forehead.",
+          "type": "string",
+          "enum": [
+            "bangs",
+            "pulled-back",
+            "side-swept",
+            "curls"
+          ],
+          "default": "pulled-back"
+        },
+        "cowlick": {
+          "description": "A tuft on top, shown when no hat is worn.",
+          "type": "boolean",
+          "default": false
+        },
+        "styles": {
+          "description": "Daily hairstyle rotation; repeats add weight.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "loose",
+              "tucked",
+              "lowpony",
+              "windswept",
+              "dutch",
+              "pigtails",
+              "crown",
+              "sidebraid",
+              "buns",
+              "braidpony",
+              "waterfall",
+              "strands",
+              "ponytail",
+              "buzz",
+              "puffs",
+              "afro",
+              "twists",
+              "locs",
+              "cornrows",
+              "bob"
+            ],
+            "default": "loose"
+          },
+          "minItems": 1,
+          "maxItems": 16,
+          "default": [
+            "loose"
+          ]
+        }
+      }
+    },
+    "face": {
+      "description": "Face.",
+      "type": "object",
+      "properties": {
+        "eyes": {
+          "description": "Eye color.",
+          "type": "string",
+          "enum": [
+            "brown",
+            "dark-brown",
+            "hazel",
+            "green",
+            "blue",
+            "grey",
+            "amber"
+          ],
+          "default": "brown"
+        },
+        "eyeSize": {
+          "description": "Eye size.",
+          "type": "string",
+          "enum": [
+            "medium",
+            "big"
+          ],
+          "default": "medium"
+        },
+        "lashes": {
+          "description": "Lash line.",
+          "type": "string",
+          "enum": [
+            "soft",
+            "full"
+          ],
+          "default": "soft"
+        },
+        "brows": {
+          "description": "Brows: fine, or bold (heavier, angled up and out).",
+          "type": "string",
+          "enum": [
+            "fine",
+            "bold"
+          ],
+          "default": "fine"
+        },
+        "chin": {
+          "description": "Chin shape.",
+          "type": "string",
+          "enum": [
+            "soft",
+            "pointed"
+          ],
+          "default": "soft"
+        },
+        "smile": {
+          "description": "Resting smile.",
+          "type": "string",
+          "enum": [
+            "plain",
+            "cat"
+          ],
+          "default": "plain"
+        },
+        "grin": {
+          "description": "Big grin.",
+          "type": "string",
+          "enum": [
+            "even",
+            "toothy-lopsided"
+          ],
+          "default": "even"
+        },
+        "blush": {
+          "description": "Cheek blush.",
+          "type": "string",
+          "enum": [
+            "light",
+            "rosy"
+          ],
+          "default": "light"
+        },
+        "freckles": {
+          "description": "Freckles across the nose.",
+          "type": "boolean",
+          "default": false
+        },
+        "missingTooth": {
+          "description": "A missing front tooth in grins.",
+          "type": "boolean",
+          "default": false
+        },
+        "earrings": {
+          "description": "Earring stud color, or null for none.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "default": null
+        }
+      }
+    },
+    "aids": {
+      "description": "Aids.",
+      "type": "object",
+      "properties": {
+        "glasses": {
+          "description": "Glasses, or null.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "style": {
+              "description": "Frame shape.",
+              "type": "string",
+              "enum": [
+                "round",
+                "square",
+                "cat-eye"
+              ],
+              "default": "round"
+            },
+            "color": {
+              "description": "Frame color.",
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$",
+              "default": "#3B2A22"
+            }
+          }
+        },
+        "hearing": {
+          "description": "Hearing aids, or null.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "kind": {
+              "description": "Type.",
+              "type": "string",
+              "enum": [
+                "behind-ear",
+                "cochlear"
+              ],
+              "default": "behind-ear"
+            },
+            "side": {
+              "description": "Which ear.",
+              "type": "string",
+              "enum": [
+                "left",
+                "right",
+                "both"
+              ],
+              "default": "both"
+            },
+            "color": {
+              "description": "Color.",
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$",
+              "default": "#C9B6A4"
+            }
+          }
+        },
+        "headCovering": {
+          "description": "Head covering, or null.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "kind": {
+              "description": "Type.",
+              "type": "string",
+              "enum": [
+                "hijab",
+                "turban",
+                "patka",
+                "kippah",
+                "headwrap"
+              ],
+              "default": "hijab"
+            },
+            "color": {
+              "description": "Color.",
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$",
+              "default": "#3C5A99"
+            }
+          }
+        },
+        "mobility": {
+          "description": "Mobility aid, or null.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "kind": {
+              "description": "Type.",
+              "type": "string",
+              "enum": [
+                "wheelchair",
+                "crutches",
+                "walker",
+                "cane"
+              ],
+              "default": "wheelchair"
+            },
+            "color": {
+              "description": "Color.",
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$",
+              "default": "#3D7DD8"
+            }
+          }
+        }
+      }
+    },
+    "wardrobe": {
+      "description": "The closet.",
+      "type": "object",
+      "properties": {
+        "colors": {
+          "description": "Favorite colors for tops, hats and extras.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          },
+          "minItems": 3,
+          "maxItems": 12,
+          "default": [
+            "#3D7DD8",
+            "#5BAA62",
+            "#E5803A",
+            "#C94F6D",
+            "#FFFFFF"
+          ]
+        },
+        "bottomColors": {
+          "description": "Colors for shorts, pants, leggings and skirts.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "default": [
+            "#3A4A63",
+            "#7A6650",
+            "#6A86A3"
+          ]
+        },
+        "shoeColors": {
+          "description": "Shoe colors.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "default": [
+            "#2A2E35",
+            "#D8563F",
+            "#FFFFFF"
+          ]
+        },
+        "ribbons": {
+          "description": "Hair ties and bows.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "default": [
+            "#E68AA8",
+            "#FFFFFF",
+            "#4DB6AC"
+          ]
+        },
+        "gearColors": {
+          "description": "Ride body, ride trim and helmet colors. Defaults to the first favorite colors.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          },
+          "minItems": 2,
+          "maxItems": 4
+        },
+        "tops": {
+          "description": "Everyday tops; the season picks among them.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "tee",
+              "tank",
+              "ruffle",
+              "dress",
+              "hoodie",
+              "raincoat",
+              "puffer",
+              "sweater",
+              "overalls",
+              "wetsuit",
+              "jersey",
+              "flannel",
+              "rashguard",
+              "swim"
+            ],
+            "default": "tee"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "default": [
+            "tee",
+            "hoodie",
+            "sweater",
+            "tank"
+          ]
+        },
+        "bottoms": {
+          "description": "Everyday bottoms.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "shorts",
+              "pants",
+              "leggings",
+              "skirt"
+            ],
+            "default": "shorts"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "default": [
+            "pants",
+            "shorts"
+          ]
+        },
+        "prints": {
+          "description": "Prints on tops.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "none",
+              "star",
+              "bolt",
+              "heart",
+              "flower",
+              "mountain",
+              "stripes",
+              "number",
+              "snowflake",
+              "pony",
+              "rainbow",
+              "pixel",
+              "saber"
+            ],
+            "default": "none"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "default": [
+            "none",
+            "star",
+            "stripes"
+          ]
+        },
+        "hats": {
+          "description": "Everyday hats.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "none",
+              "cap",
+              "capback",
+              "beanie",
+              "sunhat",
+              "flowercrown",
+              "earmuffs",
+              "bandana",
+              "headband",
+              "bow",
+              "sweatband",
+              "cowboy",
+              "newsboy",
+              "clip"
+            ],
+            "default": "none"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "default": [
+            "none",
+            "cap",
+            "beanie"
+          ]
+        },
+        "shoes": {
+          "description": "Everyday shoes.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "sneakers",
+              "sandals",
+              "lightup"
+            ],
+            "default": "sneakers"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "default": [
+            "sneakers"
+          ]
+        },
+        "extras": {
+          "description": "Everyday extras.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "necklace",
+              "backpack",
+              "scarf"
+            ],
+            "default": "necklace"
+          },
+          "minItems": 0,
+          "maxItems": 12
+        },
+        "wings": {
+          "description": "Wings for flying games.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "fairy",
+              "butterfly",
+              "dragonfly",
+              "dragon",
+              "bat",
+              "feather"
+            ],
+            "default": "fairy"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "default": [
+            "fairy"
+          ]
+        },
+        "costumes": {
+          "description": "Halloween and Christmas costumes.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "knight",
+              "dragon",
+              "skeleton",
+              "cowboy",
+              "witch",
+              "princess",
+              "pumpkin",
+              "prairie",
+              "santa",
+              "elf"
+            ],
+            "default": "knight"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "default": [
+            "knight",
+            "santa"
+          ]
+        }
+      }
+    },
+    "personality": {
+      "description": "Personality.",
+      "type": "object",
+      "properties": {
+        "rest": {
+          "description": "Faces at rest.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "smile",
+              "grin",
+              "laugh",
+              "o",
+              "blow",
+              "closed",
+              "wink",
+              "tongue",
+              "smirk",
+              "scrunch",
+              "sparkle",
+              "determined"
+            ],
+            "default": "smile"
+          },
+          "minItems": 1,
+          "maxItems": 8,
+          "default": [
+            "smile"
+          ]
+        },
+        "go": {
+          "description": "Faces in action.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "smile",
+              "grin",
+              "laugh",
+              "o",
+              "blow",
+              "closed",
+              "wink",
+              "tongue",
+              "smirk",
+              "scrunch",
+              "sparkle",
+              "determined"
+            ],
+            "default": "smile"
+          },
+          "minItems": 1,
+          "maxItems": 8,
+          "default": [
+            "smile",
+            "determined"
+          ]
+        },
+        "joy": {
+          "description": "Faces when celebrating.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "smile",
+              "grin",
+              "laugh",
+              "o",
+              "blow",
+              "closed",
+              "wink",
+              "tongue",
+              "smirk",
+              "scrunch",
+              "sparkle",
+              "determined"
+            ],
+            "default": "smile"
+          },
+          "minItems": 1,
+          "maxItems": 8,
+          "default": [
+            "laugh"
+          ]
+        },
+        "likes": {
+          "description": "Activities they lead.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "flying",
+              "wheels",
+              "water",
+              "snow",
+              "sports",
+              "nature",
+              "animals",
+              "art",
+              "music",
+              "make-believe",
+              "building"
+            ],
+            "default": "flying"
+          },
+          "minItems": 0,
+          "maxItems": 6
+        },
+        "props": {
+          "description": "Things they carry.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "wand",
+              "net",
+              "sword",
+              "dandelion",
+              "bubblewand",
+              "lantern",
+              "flashlight",
+              "jar",
+              "umbrella",
+              "balloon",
+              "teddy",
+              "bucket",
+              "stick",
+              "flower",
+              "leaf",
+              "popsicle",
+              "flag"
+            ],
+            "default": "wand"
+          },
+          "minItems": 1,
+          "maxItems": 12,
+          "default": [
+            "stick",
+            "flower",
+            "leaf"
+          ]
+        }
+      }
+    }
+  }
+}

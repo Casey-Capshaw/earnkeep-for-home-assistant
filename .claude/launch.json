@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "earnkeep-dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["vite", "--port", "5188", "--strictPort"],
+      "cwd": "frontend",
+      "port": 5188
+    },
+    {
+      "name": "sfx-audition",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "5189", "--bind", "127.0.0.1"],
+      "port": 5189
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+/* EarnKeep - Shared styles (app shell, scrollbar).
+ * Everything here MUST stay inside @layer base: un-layered author styles
+ * beat ALL @layer-wrapped rules regardless of specificity, and an un-layered
+ * universal reset in this file silently zeroed every Tailwind padding/margin
+ * utility in the app (the 2026-07-10 "padding is too tight" root cause).
+ * Tailwind's own preflight already provides the box-sizing/margin reset.
+ *
+ * The toast is a Tailwind-styled component now (shared/Toast.tsx) — the old
+ * .toast rules carried the pre-HQ-Ledger navy/green/red palette.
+ */
+
+@layer base {
+  /* The panel must size ITSELF to the screen. HA's ha-panel-custom (2026.8+)
+   * is a display:block host with no height, and the bare custom element is
+   * display:inline — so a height:100% chain below it resolves to "auto" and
+   * the app becomes content-sized, leaving the bottom of the tablet black
+   * (2026-09-11). HA's own iframe custom panels do the same thing with 100vh;
+   * the safe-area insets are HA's padding on the host, so subtract them. */
+  earn-keep-panel {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    height: calc(
+      100dvh - var(--safe-area-inset-top, 0px) - var(--safe-area-inset-bottom, 0px)
+    );
+  }
+
+  .earn-keep-app {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* No zoom compensation: the Character Desks layout (2026-07-12) is sized
+   * natively for the Fire10's real 1280x800 CSS viewport. The old 0.72 zoom
+   * existed only because the previous layout was tuned against the 1920x1200
+   * physical resolution — with it, every touch target shrank 28% on device. */
+
+  /* === Scrollbar (subtle) === */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.12);
+    border-radius: 4px;
+  }
+}

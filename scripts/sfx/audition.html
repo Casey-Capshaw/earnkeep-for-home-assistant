@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>EarnKeep sounds — audition</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --ink:#1c4a40; --paper:#fffaf0; --line:#e3d9c3; --gold:#e0a528; --muted:#6c7f78; --a:#4aa3df; --b:#f2884b; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.45 ui-rounded, "SF Pro Rounded", system-ui, sans-serif; color:var(--ink);
+         background:linear-gradient(#dff3ff, #f6fbef 55%, #fff6dc); min-height:100vh; }
+  main { max-width:1040px; margin:0 auto; padding:28px 22px 60px; }
+  h1 { font-size:28px; margin:0 0 4px; } h2 { font-size:19px; margin:0 0 4px; }
+  p { margin:6px 0; } .muted { color:var(--muted); font-size:14px; }
+  section { background:var(--paper); border:2px solid var(--ink); border-radius:18px; padding:18px 20px; margin-top:18px;
+            box-shadow:0 4px 0 #1c4a4022; }
+  button { font:inherit; color:inherit; cursor:pointer; border:2px solid var(--ink); background:#fff; border-radius:12px;
+           padding:8px 14px; font-weight:700; transition:transform .08s; }
+  button:active { transform:scale(.95); }
+  .tabs { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+  .tab { text-align:left; flex:1 1 220px; padding:12px 14px; }
+  .tab small { display:block; font-weight:500; color:var(--muted); }
+  .tab[aria-pressed=true] { background:var(--ink); color:#fff; } .tab[aria-pressed=true] small { color:#cfe6de; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:10px; }
+  .big { background:var(--gold); font-size:17px; padding:11px 18px; }
+  .kids { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:12px; }
+  @media (max-width:720px) { .kids { grid-template-columns:1fr; } }
+  .kid { border:2px solid var(--line); border-radius:16px; padding:14px; background:#fff; }
+  .kid h3 { margin:0; font-size:18px; display:flex; align-items:center; gap:8px; }
+  .dot { width:26px; height:26px; border-radius:50%; display:inline-block; border:2px solid var(--ink); }
+  .meter { height:10px; border-radius:6px; background:#eee6d2; overflow:hidden; margin:10px 0 4px; }
+  .meter i { display:block; height:100%; width:0; background:var(--gold); }
+  .combo { font-weight:800; min-height:24px; }
+  .pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .pill { border-radius:999px; padding:8px 14px; font-weight:700; background:#f3f8ff; }
+  .pill.paid { background:#fff4d6; }
+  .pill.done { background:#bfe8c9; text-decoration:line-through; opacity:.8; }
+  .label { font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-top:12px; }
+  table { border-collapse:collapse; width:100%; margin-top:8px; } td { padding:5px 6px; border-top:1px solid var(--line); }
+  td.n { color:var(--muted); font-size:14px; text-align:right; white-space:nowrap; }
+  input[type=range] { accent-color:var(--ink); width:180px; }
+  code { background:#f1ead8; padding:1px 5px; border-radius:5px; font-size:14px; }
+  ul { margin:6px 0; padding-left:20px; } li { margin:3px 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>EarnKeep sounds — pick a set</h1>
+  <p>Three original sets, same tune, different instrument. Everything is in one pentatonic key, so quick taps play
+     a rising melody instead of the same ding five times. Pick a set, try the board, then tell Claude which one.</p>
+
+  <section>
+    <h2>1. Choose a set</h2>
+    <div class="tabs" id="tabs"></div>
+    <div class="row">
+      <button class="big" id="ladderHabits">▶ Five habits in a row, then the finale</button>
+      <button class="big" id="ladderTasks">▶ Five paid tasks in a row, then the paycheck finale</button>
+      <button id="stop">■ Stop</button>
+    </div>
+    <div class="row muted">
+      <label>Gap between taps <input type="range" id="gap" min="0.4" max="2.5" step="0.1" value="1.1"> <b id="gapV"></b></label>
+      <label><input type="checkbox" id="cut" checked> a new sound cuts off the one before (how the tablet's player most likely behaves)</label>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Try it like the kids would</h2>
+    <p class="muted">Tap tiles to check them. Tap a checked tile to undo. Each kid has their own combo; it lasts while taps
+       keep coming inside the window. Checking the last habit on a board plays the finale; checking the last paid task
+       plays the paycheck finale.</p>
+    <div class="row muted">
+      <label>Combo window <input type="range" id="win" min="4" max="20" step="1" value="10"> <b id="winV"></b></label>
+      <button id="reset">Reset boards</button>
+    </div>
+    <div class="kids" id="kids"></div>
+  </section>
+
+  <section>
+    <h2>3. Every sound on its own</h2>
+    <table id="all"></table>
+    <p class="muted">The sounds being replaced, for comparison:
+      <button data-old="sfx_habit_complete">▶ current habit</button>
+      <button data-old="sfx_accountability_complete">▶ current paid task</button>
+      <span>(the current habit sound is about 12 dB quieter than the current paid-task one; the new set is level-matched)</span>
+    </p>
+  </section>
+
+  <section>
+    <h2>The escalation scheme being proposed</h2>
+    <ul>
+      <li><b>Per kid.</b> Each kid has their own combo, so one kid's streak doesn't lift another's sound.</li>
+      <li><b>Window: 10 seconds</b> since that kid's last check (try the slider above). Every check restarts the clock.</li>
+      <li><b>Levels 1 to 5.</b> Each check in the window moves up one level: higher notes, then fairy dust at 3,
+          a warm chord underneath at 4, and the full run with answering notes at 5. Past 5 it stays at 5.</li>
+      <li><b>Habits and paid tasks share the combo.</b> A paid task plays the richer strum-and-coins sound at whatever level the kid is on.</li>
+      <li><b>Finales.</b> Last habit on the board done: the habits finale (same moment as the confetti). Week's paycheck full: the coin-shower finale.</li>
+      <li><b>Undo</b> plays a small soft step down, takes that item back out of the combo, and doesn't restart the clock.
+          Re-checking the same tile can't climb the ladder twice.</li>
+      <li><b>Bank deposit</b> (from Admin) gets coins-into-the-jar. Withdrawals and the automatic paycheck/interest stay silent.</li>
+    </ul>
+  </section>
+</main>
+
+<script>
+const SOUNDS = [
+  ['sfx_habit_1','Habit, 1st in a row'],['sfx_habit_2','Habit, 2nd'],['sfx_habit_3','Habit, 3rd'],['sfx_habit_4','Habit, 4th'],['sfx_habit_5','Habit, 5th and beyond'],
+  ['sfx_habits_finale','Habits finale (board complete)'],
+  ['sfx_task_1','Paid task, 1st in a row'],['sfx_task_2','Paid task, 2nd'],['sfx_task_3','Paid task, 3rd'],['sfx_task_4','Paid task, 4th'],['sfx_task_5','Paid task, 5th and beyond'],
+  ['sfx_paycheck_finale','Paycheck finale (week complete)'],
+  ['sfx_deposit','Bank deposit'],['sfx_undo','Undo'],
+];
+const HABITS = ['Make bed','Brush teeth','Get dressed','Backpack','Feed pets','Pajamas'];
+const TASKS = ['Dishes','Laundry'];
+const KIDS = [{id:'a', name:'Kid one', color:'var(--a)'}, {id:'b', name:'Kid two', color:'var(--b)'}];
+const MAX_LEVEL = 5;
+
+let manifest = {}, setName = 'bells', current = null, ladderTimers = [];
+const $ = (s) => document.querySelector(s);
+const url = (name) => `out/${setName}/${name}.mp3`;
+
+function play(src) {
+  if ($('#cut').checked && current) { current.pause(); }
+  const a = new Audio(src); current = a; a.play(); return a;
+}
+function stopAll() { ladderTimers.forEach(clearTimeout); ladderTimers = []; if (current) current.pause(); }
+
+function ladder(prefix, finale) {
+  stopAll();
+  const gap = +$('#gap').value * 1000;
+  [1,2,3,4,5].forEach((l, i) => ladderTimers.push(setTimeout(() => play(url(`${prefix}_${l}`)), i * gap)));
+  ladderTimers.push(setTimeout(() => play(url(finale)), 5 * gap));
+}
+
+// ---- combo logic: the same rules as custom_components/earn_keep/combo.py ----
+const combos = {};  // kid -> {last, items:Set}
+function comboComplete(kid, item) {
+  const now = performance.now() / 1000, win = +$('#win').value;
+  let c = combos[kid];
+  if (!c || now - c.last > win) c = combos[kid] = {last: now, items: new Set()};
+  c.items.add(item); c.last = now;
+  return Math.min(c.items.size, MAX_LEVEL);
+}
+function comboUndo(kid, item) {
+  const now = performance.now() / 1000, c = combos[kid];
+  if (c && now - c.last <= +$('#win').value) c.items.delete(item);
+}
+
+const done = {};  // "kid|item" -> true
+function tap(kid, item, paid) {
+  const key = `${kid}|${item}`;
+  if (done[key]) { delete done[key]; comboUndo(kid, item); play(url('sfx_undo')); return renderKids(); }
+  done[key] = true;
+  const level = comboComplete(kid, item);
+  const list = paid ? TASKS : HABITS;
+  const all = list.every((n) => done[`${kid}|${n}`]);
+  play(url(all ? (paid ? 'sfx_paycheck_finale' : 'sfx_habits_finale') : `${paid ? 'sfx_task' : 'sfx_habit'}_${level}`));
+  renderKids();
+}
+
+function renderKids() {
+  $('#kids').innerHTML = KIDS.map((k) => `
+    <div class="kid"><h3><span class="dot" style="background:${k.color}"></span>${k.name}</h3>
+      <div class="meter"><i id="m-${k.id}"></i></div><div class="combo" id="c-${k.id}"></div>
+      <div class="label">Today's habits</div>
+      <div class="pills">${HABITS.map((h) => `<button class="pill ${done[k.id+'|'+h]?'done':''}" data-k="${k.id}" data-i="${h}">${h}</button>`).join('')}</div>
+      <div class="label">Paid tasks</div>
+      <div class="pills">${TASKS.map((h) => `<button class="pill paid ${done[k.id+'|'+h]?'done':''}" data-k="${k.id}" data-i="${h}" data-p="1">${h}</button>`).join('')}</div>
+    </div>`).join('');
+}
+function tick() {
+  const now = performance.now() / 1000, win = +$('#win').value;
+  for (const k of KIDS) {
+    const c = combos[k.id], left = c ? Math.max(0, win - (now - c.last)) : 0;
+    const m = document.getElementById('m-' + k.id), t = document.getElementById('c-' + k.id);
+    if (!m) continue;
+    const n = c && left > 0 ? c.items.size : 0;
+    m.style.width = (left / win * 100) + '%';
+    t.textContent = n ? `${n} in a row — level ${Math.min(n, MAX_LEVEL)}` : '';
+  }
+  requestAnimationFrame(tick);
+}
+
+function renderTabs() {
+  $('#tabs').innerHTML = Object.entries(manifest).map(([k, v]) =>
+    `<button class="tab" data-set="${k}" aria-pressed="${k === setName}">${v.title}<small>${v.blurb}</small></button>`).join('');
+}
+function renderAll() {
+  const files = manifest[setName].files;
+  $('#all').innerHTML = SOUNDS.map(([n, label]) =>
+    `<tr><td><button data-play="${n}">▶</button></td><td>${label}</td><td class="n">${files[n].seconds}s</td><td class="n"><code>${n}.mp3</code></td></tr>`).join('');
+}
+function labels() { $('#gapV').textContent = (+$('#gap').value).toFixed(1) + ' s'; $('#winV').textContent = $('#win').value + ' s'; }
+
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.set) { setName = b.dataset.set; stopAll(); renderTabs(); renderAll(); }
+  else if (b.dataset.play) play(url(b.dataset.play));
+  else if (b.dataset.old) play(`out/current/${b.dataset.old}.mp3`);
+  else if (b.dataset.k) tap(b.dataset.k, b.dataset.i, !!b.dataset.p);
+});
+$('#ladderHabits').onclick = () => ladder('sfx_habit', 'sfx_habits_finale');
+$('#ladderTasks').onclick = () => ladder('sfx_task', 'sfx_paycheck_finale');
+$('#stop').onclick = stopAll;
+$('#reset').onclick = () => { for (const k in done) delete done[k]; for (const k in combos) delete combos[k]; renderKids(); };
+$('#gap').oninput = $('#win').oninput = labels;
+
+fetch('out/manifest.json').then((r) => r.json()).then((m) => {
+  manifest = m; renderTabs(); renderAll(); renderKids(); labels(); tick();
+});
+</script>
+</body>
+</html>

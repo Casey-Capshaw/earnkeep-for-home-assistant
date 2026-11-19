@@ -1,0 +1,117 @@
+/* EarnKeep — design tokens (layered-world redesign, 2026-11-10; supersedes
+ * the dark HQ Ledger theme of 2026-07-09 / spec handoff 2026-09-11)
+ * Brand @font-face rules live in fonts.css (injected into document.head —
+ * Chromium ignores @font-face inside a shadow tree; see ha-panel-entry.ts).
+ */
+
+@import "tailwindcss";
+
+@theme {
+  /* World-driven ink + paper. The day's world (src/world/daily.ts) sets
+   * --ek-* on .earn-keep-app every morning — palette shifts with the
+   * season (moss green, blossom spring, amber autumn, frost winter). The
+   * fallbacks are the summer palette. */
+  --color-ink: var(--ek-ink, #1C4A40);          /* text, ornament, frames */
+  --color-ink-soft: var(--ek-ink-soft, #6E8F78); /* secondary text */
+  --color-paper: var(--ek-paper, #FAFDF0);       /* opaque panel paper */
+  --color-haze: var(--ek-haze, #F7FCE6);
+
+  /* Fixed meanings, tuned for dark-on-light legibility */
+  --color-done: #2E9C78;       /* completed habit / day */
+  --color-done-deep: #1E6E54;
+  --color-money: #1F7A5E;      /* balances */
+  --color-morning: #E39B2F;    /* ☀️ morning habit tint */
+  --color-evening: #5A78C0;    /* 🌙 evening habit tint */
+  --color-gold: #C99A2E;       /* badges, birthdays, overdue — kept scarce */
+  --color-gold-deep: #8F6A1F;
+  --color-kid-1: #FFB627;
+  --color-kid-2: #FF5A5F;
+
+  /* Legacy names (pre-2026-11 dark "HQ Ledger" theme) re-pointed so every
+   * admin form keeps reading correctly on light paper: cloud = ink,
+   * dusk = paper, vault = done, brass = gold. */
+  --color-cloud: var(--color-ink);
+  --color-cloud-dim: var(--color-ink-soft);
+  --color-dusk: var(--color-paper);
+  --color-dusk-deep: var(--color-paper);
+  --color-vault: #23876A;
+  --color-vault-deep: #17604B;
+  --color-brass: var(--color-gold);
+  --color-brass-deep: var(--color-gold-deep);
+  --color-label-muted: var(--color-ink-soft);
+
+  /* Type — storybook small caps for display, a warm humanist sans for
+   * everything else (numbers use tabular-nums, see .ek-num) */
+  --font-display: 'IM Fell English SC', Georgia, 'Times New Roman', serif;
+  --font-body: 'Alegreya Sans', -apple-system, 'Segoe UI', sans-serif;
+  --font-ledger: 'Alegreya Sans', -apple-system, 'Segoe UI', sans-serif;
+
+  /* shadcn/ui semantic slots on the light world palette */
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --color-card: var(--color-paper);
+  --color-card-foreground: var(--color-ink);
+  --color-popover: var(--color-paper);
+  --color-popover-foreground: var(--color-ink);
+  --color-primary: var(--color-vault);
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: var(--color-paper);
+  --color-secondary-foreground: var(--color-ink);
+  --color-muted: color-mix(in srgb, var(--color-ink) 6%, var(--color-paper));
+  --color-muted-foreground: var(--color-ink-soft);
+  --color-accent: color-mix(in srgb, var(--color-ink) 9%, var(--color-paper));
+  --color-accent-foreground: var(--color-ink);
+  --color-destructive: #D24C4C;
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: color-mix(in srgb, var(--color-ink) 22%, transparent);
+  --color-input: color-mix(in srgb, var(--color-ink) 22%, transparent);
+  --color-ring: var(--color-vault);
+  --radius: 0.875rem;
+
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Overdue compensated day — soft brass halo pulse (attention without alarm) */
+@keyframes overdue-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 154, 46, 0.5); }
+  50% { box-shadow: 0 0 0 5px rgba(201, 154, 46, 0.06); }
+}
+
+/* Streak flame — gentle ambient flicker */
+@keyframes flame-flicker {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  35% { transform: scale(1.08); filter: brightness(1.15); }
+  60% { transform: scale(0.96); filter: brightness(0.95); }
+}
+
+/* Badge shine — used ONCE on unlock, never as an idle loop */
+@keyframes badge-shine {
+  0%, 60%, 100% { transform: translateX(-60%); }
+  30% { transform: translateX(60%); }
+}
+
+/* Check pop — a completed tile's ✓ badge springing in */
+@keyframes ek-pop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Toast — slides up from below the dock with a spring */
+@keyframes ek-toast {
+  from { transform: translate(-50%, 120%); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+/* Admin tab content rising into place on tab switch */
+@keyframes ek-rise {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Reduce motion only when Admin → Motion is "Follow tablet" (.ek-motion-auto
+ * on the app root + dialog host). "Always" drops the class, so a kiosk with
+ * Android system animations off still gets its living world. */
+@media (prefers-reduced-motion: reduce) {
+  .ek-motion-auto, .ek-motion-auto * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+}

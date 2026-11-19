@@ -1,0 +1,12 @@
+{
+  "format": "earnkeep-sprite", "version": 1, "label": "Fern",
+  "body": { "height": 0.9, "skin": "tone-6" },
+  "hair": { "color": "black", "length": "medium", "texture": "curly", "front": "bangs", "cowlick": false, "styles": ["buns", "buns", "crown", "tucked", "windswept"] },
+  "face": { "eyes": "brown", "eyeSize": "medium", "lashes": "full", "brows": "bold", "chin": "soft", "smile": "plain", "grin": "even", "blush": "light", "earrings": "#C0C7D1" },
+  "wardrobe": {
+    "colors": ["#E9A23B", "#5B4BC4", "#2E8B7A", "#F7F1E3"], "bottomColors": ["#4A3B6B", "#C77D4A"], "shoeColors": ["#5B4BC4", "#F7F1E3"], "ribbons": ["#E9A23B", "#2E8B7A"], "gearColors": ["#E9A23B", "#5B4BC4"],
+    "tops": ["overalls", "dress", "sweater", "tank", "hoodie"], "bottoms": ["pants", "skirt"], "prints": ["stripes", "heart", "pony", "none"],
+    "hats": ["none", "sunhat", "bow"], "shoes": ["sandals", "sneakers"], "extras": ["scarf"], "wings": ["butterfly", "feather"], "costumes": ["prairie", "princess", "elf"]
+  },
+  "personality": { "rest": ["smile", "wink"], "go": ["determined", "laugh"], "joy": ["laugh", "o"], "likes": ["animals", "music", "water"], "props": ["jar", "lantern", "balloon", "bucket"] }
+}

@@ -1,0 +1,51 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "EarnKeep",
+        "description": "Set up the EarnKeep integration.",
+        "data": {
+          "admin_pin": "Admin PIN"
+        }
+      },
+      "family_count": {
+        "title": "How Many Kids?",
+        "description": "How many children will use EarnKeep?",
+        "data": {
+          "num_kids": "Number of kids"
+        }
+      },
+      "family_names": {
+        "title": "Name Your Kids",
+        "description": "Enter a name for each child. You can change names, emojis, and colors later in the admin panel.",
+        "data": {
+          "child_1_name": "Child 1 name",
+          "child_2_name": "Child 2 name",
+          "child_3_name": "Child 3 name",
+          "child_4_name": "Child 4 name",
+          "child_5_name": "Child 5 name",
+          "child_6_name": "Child 6 name"
+        }
+      },
+      "migrate": {
+        "title": "Migrate Existing Data",
+        "description": "Existing EarnKeep entities were found. Would you like to migrate your data?",
+        "data": {
+          "migrate": "Migrate existing data"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "EarnKeep options",
+        "description": "Optional: a tablet running Fully Kiosk Browser that plays announcements and sound effects. Leave the host empty to turn tablet playback off. The Fully Kiosk remote-admin password is read from the .earnkeep_fk_password file in your Home Assistant config directory.",
+        "data": {
+          "fully_kiosk_host": "Fully Kiosk host (IP address or hostname)",
+          "fully_kiosk_port": "Fully Kiosk remote-admin port"
+        }
+      }
+    }
+  }
+}

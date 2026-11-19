@@ -1,0 +1,14 @@
+{
+  "format": "earnkeep-sprite", "version": 1, "label": "Rowan",
+  "body": { "height": 1.08, "skin": "tone-4" },
+  "hair": { "color": "dark-brown", "length": "short", "texture": "wavy", "front": "pulled-back", "cowlick": false, "styles": ["loose", "loose", "braidpony", "sidebraid"] },
+  "face": { "eyes": "hazel", "eyeSize": "big", "lashes": "soft", "brows": "fine", "chin": "pointed", "smile": "cat", "grin": "toothy-lopsided", "blush": "rosy", "freckles": true },
+  "aids": { "glasses": { "style": "round", "color": "#1F2937" } },
+  "wardrobe": {
+    "colors": ["#C2410C", "#0F766E", "#FACC15", "#1F2937"], "bottomColors": ["#78350F", "#0F766E"], "shoeColors": ["#1F2937", "#FACC15"], "gearColors": ["#FACC15", "#1F2937", "#0F766E"], "ribbons": ["#FACC15"],
+    "tops": ["tee", "jersey", "hoodie", "flannel", "tank"], "bottoms": ["shorts", "leggings"], "prints": ["saber", "pixel", "snowflake", "none"],
+    "hats": ["none", "newsboy", "beanie", "bandana"], "shoes": ["lightup", "sneakers"], "extras": ["backpack", "necklace"], "wings": ["bat", "dragonfly"], "costumes": ["skeleton", "cowboy", "santa"]
+  },
+  "personality": { "rest": ["smile", "smirk"], "go": ["determined", "o"], "joy": ["laugh", "sparkle"], "likes": ["building", "snow", "animals"], "props": ["lantern", "bucket", "flashlight"] },
+  "futureTrait": { "anything": 1 }
+}
