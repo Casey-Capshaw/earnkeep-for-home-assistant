@@ -3,6 +3,11 @@
 # Fully Kiosk's remote-admin API. The final word on any visual change is what
 # the actual tablet shows — desktop/browser verification has fooled us twice.
 #
+# Its screenshots can fool you too: Fully Kiosk's capture sometimes misdraws
+# composited layers. With Home Assistant's sidebar open it has drawn the
+# second kid's card at half width while the screen itself was fine. When a
+# capture looks wrong, look at the tablet before you change the layout.
+#
 # Usage: scripts/verify-device.sh [output.png]
 # Needs EARNKEEP_TABLET_HOST (and EARNKEEP_HA_SSH unless FK_PASSWORD is set)
 # in .env at the repo root — see .env.example.
