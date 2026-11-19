@@ -54,8 +54,6 @@ EarnKeep tracks two distinct types of responsibility:
 
 ## Installation
 
-> **The Marketplace and HACS only install from public GitHub repositories.** This repository is private, so use **Manual** install unless it's made public.
-
 ### Marketplace (Home Assistant 2026.11 and newer)
 
 HACS is built into Home Assistant as the **Marketplace** from 2026.11. Nothing extra needs installing.
