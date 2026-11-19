@@ -21,11 +21,14 @@ echo "=== Creating release $TAG ==="
 echo "Building frontend..."
 bash "$SCRIPT_DIR/build.sh"
 
-# Check for uncommitted changes
+# The committed bundle must be exactly what the source builds to.
 if [ -n "$(git -C "$ROOT_DIR" status --porcelain)" ]; then
-  echo "ERROR: Uncommitted changes. Commit all changes before releasing."
+  echo "ERROR: Uncommitted changes (or the committed bundle doesn't match a fresh build). Commit all changes before releasing."
   exit 1
 fi
+
+# Check the built panel itself renders.
+node "$SCRIPT_DIR/verify-bundle.mjs"
 
 # Create tag
 echo "Creating tag $TAG..."

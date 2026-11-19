@@ -123,5 +123,8 @@ Setting up the wall tablet itself is in [tablet.md](tablet.md).
 - `node scripts/sprite-parity.mjs`: preset render snapshots.
 - `node scripts/verify-visual.mjs`, `node scripts/verify-admin.mjs`: screenshots
   at the 1280×800 tablet size.
+- `node scripts/verify-bundle.mjs` loads the built `earn-keep-panel.js` into
+  the same harness and checks it renders; `scripts/release.sh` runs it before
+  tagging.
 - CI (`.github/workflows/validate.yml`) runs the tests, hassfest and the HACS
   check.
