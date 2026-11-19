@@ -183,6 +183,7 @@ To preview any day, add `?ekdate=YYYY-MM-DD`, `&ekweather=<HA weather state>` an
 ```bash
 node scripts/verify-visual.mjs   # Roles + Bank at real tablet sizes, plus special-day worlds
 node scripts/verify-admin.mjs    # PIN gate and every Admin tab at 1280×800
+node scripts/verify-bundle.mjs   # the BUILT panel file, the one Home Assistant loads
 ```
 
 Screenshots are written to `frontend/dev/screenshots/`. `node scripts/readme-screenshots.mjs` retakes the images in this README from the mock family.

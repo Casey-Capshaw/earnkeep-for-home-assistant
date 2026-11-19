@@ -10,20 +10,22 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      '@': resolve(import.meta.dirname, 'src'),
     },
   },
   build: {
-    outDir: resolve(__dirname, '../custom_components/earn_keep/frontend'),
+    outDir: resolve(import.meta.dirname, '../custom_components/earn_keep/frontend'),
     emptyOutDir: true,
     cssCodeSplit: false,
+    // One self-contained file is the point (HA loads a single panel module).
+    chunkSizeWarningLimit: 1200,
     rollupOptions: {
-      input: resolve(__dirname, 'src/ha-panel-entry.ts'),
+      input: resolve(import.meta.dirname, 'src/ha-panel-entry.ts'),
       output: {
         entryFileNames: 'earn-keep-panel.js',
         assetFileNames: 'assets/[name][extname]',
         format: 'es',
-        inlineDynamicImports: true,
+        codeSplitting: false,
       },
     },
   },
