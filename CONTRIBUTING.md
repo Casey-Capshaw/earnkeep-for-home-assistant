@@ -15,6 +15,9 @@ are reviewed when time allows.
 
 ## Development
 
+Using an AI coding agent? Point it at [`AGENTS.md`](AGENTS.md); it has the
+layout, the checks to run and these same rules.
+
 - Backend: Python, in `custom_components/earn_keep/`. Run the tests with
   `python3 -m unittest discover tests`.
 - Frontend: React + Vite + TypeScript, in `frontend/`. `scripts/build.sh`
