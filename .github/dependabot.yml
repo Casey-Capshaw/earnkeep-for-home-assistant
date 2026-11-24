@@ -1,0 +1,29 @@
+# Dependabot version updates. Security updates are switched on in the repo
+# settings and arrive on their own, whatever this file says.
+version: 2
+updates:
+  # The actions in .github/workflows are pinned to commit SHAs, with the
+  # version in a comment; Dependabot bumps both.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci
+    groups:
+      actions:
+        patterns: ["*"]
+
+  # The frontend. The built panel (custom_components/earn_keep/frontend/
+  # earn-keep-panel.js) is tracked, so before merging one of these PRs,
+  # check it out, run scripts/build.sh and commit the rebuilt bundle.
+  - package-ecosystem: npm
+    directory: /frontend
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: build
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
