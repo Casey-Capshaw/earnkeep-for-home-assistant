@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security problem
+    url: https://github.com/Casey-Capshaw/earnkeep-for-home-assistant/security/advisories/new
+    about: Please report vulnerabilities privately, not in a public issue.
+  - name: Installing and setting up
+    url: https://github.com/Casey-Capshaw/earnkeep-for-home-assistant#installation
+    about: The README walks through the Marketplace, HACS and manual installs and first setup.

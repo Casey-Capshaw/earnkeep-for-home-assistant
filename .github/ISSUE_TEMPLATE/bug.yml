@@ -1,0 +1,63 @@
+name: Bug report
+description: Something isn't working.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Please leave out children's real names, photos and your admin PIN; "my older kid" is plenty.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open Admin → Tasks
+        2. …
+    validations:
+      required: true
+  - type: input
+    id: ha-version
+    attributes:
+      label: Home Assistant version
+      description: Settings → About.
+      placeholder: "2026.11.2"
+    validations:
+      required: true
+  - type: input
+    id: earnkeep-version
+    attributes:
+      label: EarnKeep version
+      description: The `version` in `manifest.json`, or the version shown in the Marketplace or HACS.
+      placeholder: "1.8.0"
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Browser or tablet
+      placeholder: "Fully Kiosk on a Fire HD 10, Chrome on a laptop, …"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Anything from Settings → System → Logs that mentions `earn_keep`, or the browser console.
+      render: shell
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: This report has no children's real names, photos or likenesses, and no PIN.
+          required: true
