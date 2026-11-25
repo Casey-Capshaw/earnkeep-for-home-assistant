@@ -1,0 +1,12 @@
+{
+  "format": "earnkeep-sprite", "version": 1, "label": "Wren",
+  "body": { "height": 0.9, "skin": "tone-7" },
+  "hair": { "color": "dark-brown", "dye": { "color": "#E85D9C", "where": "tips" }, "length": "long", "texture": "coily", "front": "curls", "cowlick": false, "styles": ["locs", "locs", "puffs", "twists", "buns"] },
+  "face": { "eyes": "amber", "eyeSize": "big", "lashes": "full", "brows": "bold", "chin": "soft", "smile": "plain", "grin": "even", "blush": "rosy", "earrings": "#C0C7D1" },
+  "wardrobe": {
+    "colors": ["#E85D9C", "#2EB8E6", "#FFD23F", "#FFFFFF"], "bottomColors": ["#3B2F63", "#2EB8E6"], "shoeColors": ["#FFD23F", "#FFFFFF"], "ribbons": ["#FFD23F", "#2EB8E6"], "gearColors": ["#2EB8E6", "#E85D9C"],
+    "tops": ["swim", "rashguard", "dress", "tee", "puffer", "sweater"], "bottoms": ["leggings", "skirt", "shorts"], "prints": ["snowflake", "star", "pony", "none"],
+    "hats": ["none", "bow", "earmuffs", "beanie"], "shoes": ["sandals", "lightup"], "extras": ["scarf"], "wings": ["fairy", "bat"], "costumes": ["pumpkin", "princess", "santa"]
+  },
+  "personality": { "rest": ["smile", "tongue"], "go": ["laugh", "determined"], "joy": ["scrunch", "laugh"], "likes": ["water", "snow", "make-believe"], "props": ["wand", "umbrella", "popsicle", "teddy"] }
+}

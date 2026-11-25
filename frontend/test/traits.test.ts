@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { validateSprite, resolveSprite, HAIR_STYLES, FIELDS, type Spec } from '../src/world/sprites/traits.ts';
+import { readdirSync } from 'node:fs';
 
 const fx = (n: string) => JSON.parse(readFileSync(new URL(`./fixtures/${n}.sprite.json`, import.meta.url), 'utf8'));
 
@@ -13,6 +14,16 @@ test('minimal file is valid', () => {
 
 test('fixtures are valid', () => {
   for (const n of ['fern', 'rowan']) assert.deepEqual(validateSprite(fx(n)).errors, [], n);
+});
+
+test('presets are valid and carry no unknown keys', () => {
+  const dir = new URL('../src/world/sprites/presets/', import.meta.url);
+  const files = readdirSync(dir).filter((n) => n.endsWith('.sprite.json'));
+  assert.ok(files.length >= 2);
+  for (const n of files) {
+    const r = validateSprite(JSON.parse(readFileSync(new URL(n, dir), 'utf8')));
+    assert.deepEqual([r.errors, r.warnings], [[], []], n);
+  }
 });
 
 test('unknown key warns and is kept', () => {

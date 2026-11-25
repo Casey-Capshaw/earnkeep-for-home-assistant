@@ -13,8 +13,8 @@ tell who that is", not a likeness.
 The format reference is [`README.md`](README.md) in this folder, and
 [`sprite.schema.json`](sprite.schema.json) is the JSON Schema. Two complete
 examples ship as presets:
-[`fern.sprite.json`](../../frontend/test/fixtures/fern.sprite.json) and
-[`rowan.sprite.json`](../../frontend/test/fixtures/rowan.sprite.json).
+[`wren.sprite.json`](../../frontend/src/world/sprites/presets/wren.sprite.json) and
+[`ivy.sprite.json`](../../frontend/src/world/sprites/presets/ivy.sprite.json).
 
 ## Ground rules
 
