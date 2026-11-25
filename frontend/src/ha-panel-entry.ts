@@ -97,4 +97,9 @@ class EarnKeepPanel extends HTMLElement {
   }
 }
 
-customElements.define('earn-keep-panel', EarnKeepPanel);
+// A config-entry reload re-registers the panel under a new ?v= URL, so a tab that
+// is already open runs this bundle a second time. Defining the element twice
+// throws; the tab keeps the class it has until it is reloaded.
+if (!customElements.get('earn-keep-panel')) {
+  customElements.define('earn-keep-panel', EarnKeepPanel);
+}
