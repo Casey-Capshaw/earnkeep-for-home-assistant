@@ -13,6 +13,7 @@ import { rng } from '../../src/world/scene';
 import type { Pose } from '../../src/world/sprites/types';
 import { CHAIR_SEAT_Y, Wheelchair, usesChair } from '../../src/world/sprites/aids';
 import { HAIR_STYLES_GOLIVE } from '../../src/world/sprites/traits';
+import { PRESETS } from '../../src/world/sprites/presets';
 
 const q = new URLSearchParams(location.search);
 const S = Number(q.get('s') || 0.9);
@@ -64,6 +65,21 @@ const App = () => (
   <div style={{ padding: 8 }} className="ek-sprites">
     <style>{SPRITE_CSS + PROPS_CSS}</style>
     {q.get('only') !== 'traits' ? null : <style>{'h3 ~ h3.rest, h3.rest ~ * { display: none; }'}</style>}
+    {q.get('only') !== 'presets' ? null : <style>{'.ek-presets ~ * { display: none; }'}</style>}
+    {Object.entries(PRESETS).map(([id, file]) => {
+      const ch = resolveSprite(file as SpriteFile, id);
+      return (
+        <React.Fragment key={id}>
+          <h3>Preset — {String((file as SpriteFile).label ?? id)}</h3>
+          {([['idle', 3, 'summer'], ['walk', 14, 'spring'], ['wave', 29, 'autumn'], ['cheer', 41, 'winter'], ['idle', 57, 'summer']] as const).map(([pose, seed, season]) => <Cell key={seed} who="fern" ch={ch} pose={pose} seed={seed} season={season} label={`${id} ${season} ${pose}`} />)}
+          <Cell who="fern" ch={ch} pose="fly" seed={5} season="summer" wings={ch.wardrobe.wings[0]} label={`${id} fly`} />
+          <Cell who="fern" ch={ch} pose="cheer" seed={8} season="autumn" special={{ kind: 'halloween', intensity: 'full', colors: [] }} label={`${id} halloween`} />
+          <Cell who="fern" ch={ch} pose="idle" seed={6} season="winter" weather="snowy" label={`${id} snow`} />
+          <Cell who="fern" ch={ch} pose="idle" seed={3} season="summer" hat="none" expr={ch.personality.joy[0]} label={`${id} ${ch.personality.joy[0]}`} />
+        </React.Fragment>
+      );
+    })}
+    <div className="ek-presets" />
     <h3>Hair length × texture (loose)</h3>
     {(['short', 'medium', 'long'] as const).flatMap((length) => (['straight', 'wavy', 'curly', 'coily'] as const).map((texture) => (
       <Cell key={length + texture} who="rowan" ch={with_('rowan', { hair: { length, texture, front: 'pulled-back' } })} hair="loose" hat="none" pose="idle" seed={3} season="summer" label={`${length} ${texture}`} />

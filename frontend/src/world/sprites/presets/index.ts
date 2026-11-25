@@ -1,10 +1,7 @@
-// Temporary preset sprites, loaded from the test fixtures until the presets
-// plan replaces them with real ones.
-import fern from '../../../../test/fixtures/fern.sprite.json';
-import rowanFixture from '../../../../test/fixtures/rowan.sprite.json';
+// The preset characters a household can start from in Admin → People →
+// Character. All fictional; each is a complete, valid character file.
+// scripts/sprite-parity.mjs snapshots their renders.
+import ivy from './ivy.sprite.json';
+import wren from './wren.sprite.json';
 
-// The rowan fixture carries an unknown key on purpose (it tests that unknown
-// keys survive); a preset someone starts from shouldn't.
-const { futureTrait: _unknown, ...rowan } = rowanFixture;
-
-export const PRESETS = { fern, rowan };
+export const PRESETS = { wren, ivy };

@@ -82,7 +82,7 @@ try {
   await dialog.getByText(/hair\.color: "teal"/).waitFor({ timeout: 2000 });
   if (await dialog.getByRole('button', { name: 'Save' }).isEnabled()) throw new Error('Save is enabled for an invalid file');
   await page.screenshot({ path: join(OUT, 'admin-character-errors.png') });
-  await dialog.getByRole('button', { name: 'Start from Rowan' }).click();
+  await dialog.getByRole('button', { name: 'Start from Wren' }).click();
   await dialog.getByText('Looks good').waitFor({ timeout: 2000 });
   await dialog.getByRole('button', { name: 'Save' }).click();
   await page.getByText(/character saved/).waitFor({ timeout: 3000 });

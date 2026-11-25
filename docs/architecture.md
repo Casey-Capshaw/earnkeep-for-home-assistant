@@ -99,8 +99,9 @@ Sprite file. A member without one is simply not drawn.
   messages Admin → People shows; `components/admin/CharacterDialog.tsx` is
   that dialog (validate as you type, animated preview, save, export, remove).
 - `sprites/presets/` holds the fictional preset characters that ship with
-  the app. `scripts/sprite-parity.mjs` snapshots their renders so changes to
-  the rig show up in review.
+  the app (Wren and Ivy, one `*.sprite.json` each; the test fixtures in
+  `frontend/test/fixtures/` are separate). `scripts/sprite-parity.mjs`
+  snapshots their renders so changes to the rig show up in review.
 
 ## Configuration and deploy
 

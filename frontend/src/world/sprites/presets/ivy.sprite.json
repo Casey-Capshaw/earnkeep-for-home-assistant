@@ -1,0 +1,13 @@
+{
+  "format": "earnkeep-sprite", "version": 1, "label": "Ivy",
+  "body": { "height": 1.1, "skin": "tone-3" },
+  "hair": { "color": "dark-brown", "length": "long", "texture": "wavy", "front": "pulled-back", "cowlick": false, "styles": ["lowpony", "braidpony"] },
+  "face": { "eyes": "hazel", "eyeSize": "medium", "lashes": "full", "brows": "bold", "chin": "pointed", "smile": "plain", "grin": "even", "blush": "light" },
+  "aids": { "headCovering": { "kind": "hijab", "color": "#2E8B7A" } },
+  "wardrobe": {
+    "colors": ["#2E8B7A", "#E9A23B", "#F7F1E3", "#B03A48"], "bottomColors": ["#24324A", "#6B4F3A"], "shoeColors": ["#F7F1E3", "#B03A48"], "ribbons": ["#E9A23B"], "gearColors": ["#B03A48", "#F7F1E3", "#2E8B7A"],
+    "tops": ["sweater", "tee", "dress", "rashguard", "hoodie"], "bottoms": ["pants", "leggings", "skirt"], "prints": ["mountain", "star", "stripes", "none"],
+    "hats": ["none"], "shoes": ["sneakers"], "extras": ["backpack", "necklace"], "wings": ["feather", "dragon"], "costumes": ["knight", "prairie", "elf"]
+  },
+  "personality": { "rest": ["smile", "smirk"], "go": ["determined", "grin"], "joy": ["laugh", "wink"], "likes": ["sports", "flying", "art"], "props": ["sword", "leaf", "flag"] }
+}
